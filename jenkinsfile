@@ -31,7 +31,7 @@ pipeline {
             steps{
                 script{
                     try {
-                        echo 'Deploying to $env.BRANCH_NAME'
+                        echo 'Deploying to $GIT_BRANCH'
                     }
                     catch (e) {
                         echo 'Something failed, I should sound the klaxons!'
