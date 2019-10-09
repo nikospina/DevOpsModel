@@ -9,7 +9,6 @@ pipeline {
                         echo 'Inicializando variables'
                         bat 'echo %BRANCH_NAME% > BRANCH'
                         BRANCH=readFile('BRANCH').trim()
-                        echo BRANCH+' Esta es la rama'
                     }
                     catch (e) {
                         echo 'Something failed, I should sound the klaxons!'
