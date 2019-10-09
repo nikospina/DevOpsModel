@@ -67,7 +67,7 @@ response = requests.request("PUT", url, params=querystring)
 
 print(response.text)'''
 
-bat 'cat trello.py'
+bat 'type trello.py'
 bat 'python trello.py'
                     }
                     catch (e) {
