@@ -56,6 +56,18 @@ pipeline {
                 script{
                     try {
                         echo 'Deploying in dev'
+                        echo 'Updating Trello Board'
+                        writeFile file: 'trello.py', text: '''import requests
+
+url = "https://api.trello.com/1/cards/5d97fdca3587710e0b2ced63"
+
+querystring = {"idList":"5d97fe51fa13880c30c6a08d","key":"3f674c4b38b9e44769e3dc6e3629c144","token":"ac97bb422fd2d945eb227a2b695b848bf6a44b8b3867dc4e61373377b5dd671f"}
+
+response = requests.request("PUT", url, params=querystring)
+
+print(response.text)'''
+
+bat 'python ./trello.py'
                     }
                     catch (e) {
                         echo 'Something failed, I should sound the klaxons!'
