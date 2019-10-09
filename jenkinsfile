@@ -1,11 +1,15 @@
+def BRANCH = ""
 pipeline {
     agent any
     stages{
-        stage('Clone') {
+        stage('Inicializando') {
             steps{
                 script{
                     try {
-                        echo 'cloning repository'
+                        echo 'Inicializando variables'
+                        bat 'echo %BRANCH_NAME% > BRANCH'
+                        BRANCH=readFile('BRANCH').trim()
+                        echo BRANCH+' Esta es la rama'
                     }
                     catch (e) {
                         echo 'Something failed, I should sound the klaxons!'
@@ -16,7 +20,7 @@ pipeline {
         }
         stage('Build') {
             steps{
-                script{
+                script{                    
                     try {
                         echo 'building'
                     }
@@ -27,11 +31,80 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('test') {
             steps{
                 script{
                     try {
-                        echo 'Deploying to $env.GIT_BRANCH'
+                        echo 'testing'
+                    }
+                    catch (e) {
+                        echo 'Something failed, I should sound the klaxons!'
+                        throw e
+                    }
+                }
+            }
+        }
+        stage('Deploy Dev') {
+            when {
+                not {
+                    anyOf {
+                        branch 'PRD';
+                        branch 'QA'
+                    }
+                }
+            }
+            steps{
+                script{
+                    try {
+                        echo 'Deploying in dev'
+                    }
+                    catch (e) {
+                        echo 'Something failed, I should sound the klaxons!'
+                        throw e
+                    }
+                }
+            }
+        }
+        stage('Deploy QA') {
+            when {
+                branch 'QA';
+            }
+            steps{
+                script{
+                    try {
+                        echo 'Deploying in QA'
+                    }
+                    catch (e) {
+                        echo 'Something failed, I should sound the klaxons!'
+                        throw e
+                    }
+                }
+            }
+        }
+        stage('Deploy PRD') {
+            when {
+                branch 'PRD';
+            }
+            steps{
+                script{
+                    try {
+                        echo 'Deploying in PRD'
+                    }
+                    catch (e) {
+                        echo 'Something failed, I should sound the klaxons!'
+                        throw e
+                    }
+                }
+            }
+        }
+        stage('QA Test') {
+            when {
+                branch 'QA'
+            }
+            steps {
+                script{
+                    try {
+                        echo 'QA Testing'
                     }
                     catch (e) {
                         echo 'Something failed, I should sound the klaxons!'
@@ -41,4 +114,4 @@ pipeline {
             }
         }
     }
-}
+}   
