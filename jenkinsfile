@@ -56,6 +56,26 @@ pipeline {
                 script{
                     try {
                         echo 'Deploying in dev'
+                    }
+                    catch (e) {
+                        echo 'Something failed, I should sound the klaxons!'
+                        throw e
+                    }
+                }
+            }
+        }
+        stage('Updating Trello Board') {
+            when {
+                not {
+                    anyOf {
+                        branch 'PRD';
+                        branch 'QA'
+                    }
+                }
+            }
+            steps{
+                script{
+                    try {
                         echo 'Updating Trello Board'
                         writeFile file: 'trello.py', text: '''import requests
 
