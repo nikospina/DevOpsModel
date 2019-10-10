@@ -64,7 +64,7 @@ pipeline {
                 }
             }
         }
-        stage('Updating Trello Board') {
+        stage('Update Trello') {
             when {
                 not {
                     anyOf {
