@@ -1,5 +1,5 @@
 //rebase and merge
-//prueba merge commit
+//rebase and merge
 
 def BRANCH = ""
 pipeline {
