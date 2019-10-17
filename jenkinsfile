@@ -1,4 +1,10 @@
 //samuel
+//rebase and merge
+//nicolas
+//ospina
+//rodriguez
+//prueba merge commit
+
 def BRANCH = ""
 pipeline {
     agent any
