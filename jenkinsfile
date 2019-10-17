@@ -1,3 +1,4 @@
+//samuel
 def BRANCH = ""
 pipeline {
     agent any
