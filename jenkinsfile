@@ -2,7 +2,6 @@
 //nicolas
 //ospina
 //rodriguez
-//prueba merge commit
 
 def BRANCH = ""
 pipeline {
